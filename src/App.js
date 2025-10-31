@@ -379,6 +379,7 @@ export default function InteractiveTerminal() {
     <div className="flex items-center justify-center w-full h-screen p-4">
       <div className={`mx-auto w-full ${isMaximized ? 'max-w-full h-full' : 'max-w-4xl'}`}>
         <div className="terminal rounded-lg overflow-hidden">
+          <div className="terminal-inner">
           <div className="terminal-header px-4 py-2 flex items-center justify-between gap-2">
             <div class="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-red-500 cursor-pointer" onClick={handleClose}></div>
@@ -431,6 +432,7 @@ export default function InteractiveTerminal() {
           </div>
           )}
         </div>
+      </div>
         
         <p className="text-center mt-4 text-sm">
           Type "help" to see available commands

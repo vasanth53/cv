@@ -1,18 +1,65 @@
 body {
-  background-color: var(--background-color);
+  background: var(--animated-gradient);
+  background-size: var(--animated-background-size);
+  animation: var(--animated-animation-name) var(--animated-animation-duration) ease infinite;
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
 }
 
+@keyframes radialGradientAnimation { /* New keyframes */
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
 .terminal {
-  background-color: var(--terminal-background);
-  border: 1px solid var(--terminal-border);
+  background-color: transparent;
+  border: none;
   color: var(--output-color);
+  position: relative; /* Needed for pseudo-element positioning */
+  padding: 1px; /* To make space for the pseudo-element border */
+  border-radius: 0.5rem; /* Match the rounded-lg from App.js */
+  overflow: hidden; /* Hide overflow of pseudo-element */
+}
+
+.terminal::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: var(--animated-gradient);
+  background-size: var(--animated-background-size);
+  animation: var(--animated-animation-name) var(--animated-animation-duration) ease infinite;
+  z-index: -1; /* Behind the terminal content */
+  border-radius: 0.5rem; /* Match terminal border-radius */
+}
+
+.terminal-inner {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  border-radius: 0.5rem; /* Match outer border-radius */
+  height: 100%; /* Ensure it fills the parent */
+  width: 100%; /* Ensure it fills the parent */
+  position: relative; /* For proper stacking context */
+  z-index: 0; /* Above the pseudo-element */
 }
 
 .terminal-header {
   background-color: var(--header-background);
-  border-bottom: 1px solid var(--terminal-border);
+  border-bottom: none;
   color: var(--header-text);
 }
 

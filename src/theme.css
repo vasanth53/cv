@@ -12,19 +12,29 @@
     --text-color: #cccccc;
     --button-background: #333333;
     --button-text: #ffffff;
+
+    --animated-gradient: radial-gradient(circle at center, #0a0a0a 0%, #1a1a1a 10%, #2a2a2a 20%, #3a3a3a 30%, #1a1a2e 40%, #16213e 50%, #0f3460 60%, #1a1a1a 70%, #0a0a0a 100%);
+    --animated-background-size: 400% 400%;
+    --animated-animation-name: radialGradientAnimation;
+    --animated-animation-duration: 60s;
   }
   
   :root[data-theme='light'] {
     --background-color: #ffffff;
     --terminal-background: #f0f0f0;
-    --terminal-border: #008000;
+    --terminal-border: #666666;
     --header-background: #e0e0e0;
     --header-text: #333333;
-    --prompt-color: #008000;
-    --command-color: #0000ff;
-    --output-color: #008000;
+    --prompt-color: #000000;
+    --command-color: #000000;
+    --output-color: #000000;
     --text-color: #333333;
     --button-background: #e0e0e0;
     --button-text: #000000;
+
+    --animated-gradient: radial-gradient(circle at center, #e0ffff 0%, #f0f8ff 10%, #f5fffa 20%, #f0fff0 30%, #fffacd 40%, #faebd7 50%, #ffe4e1 60%, #fff0f5 70%, #e6e6fa 80%, #f0e68c 90%, #add8e6 100%);
+    --animated-background-size: 400% 400%;
+    --animated-animation-name: radialGradientAnimation;
+    --animated-animation-duration: 60s;
   }
   
