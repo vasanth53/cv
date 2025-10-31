@@ -70,6 +70,9 @@ export default function InteractiveTerminal() {
   const [dealerHand, setDealerHand] = useState([]);
   const [playerScore, setPlayerScore] = useState(0);
   const [dealerScore, setDealerScore] = useState(0);
+  const [isMaximized, setIsMaximized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [isClosed, setIsClosed] = useState(false);
 
   const data = {
     name: "VASANTHKUMAR J",
@@ -356,15 +359,31 @@ export default function InteractiveTerminal() {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
+  const handleClose = () => {
+    setIsClosed(true);
+  };
+
+  const handleMinimize = () => {
+    setIsMinimized(!isMinimized);
+  };
+
+  const handleMaximize = () => {
+    setIsMaximized(!isMaximized);
+  };
+
+  if (isClosed) {
+    return null;
+  }
+
   return (
     <div className="flex items-center justify-center w-full h-screen p-4">
-      <div className="max-w-4xl mx-auto w-full">
+      <div className={`mx-auto w-full ${isMaximized ? 'max-w-full h-full' : 'max-w-4xl'}`}>
         <div className="terminal rounded-lg overflow-hidden">
           <div className="terminal-header px-4 py-2 flex items-center justify-between gap-2">
             <div class="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              <div className="w-3 h-3 rounded-full bg-red-500 cursor-pointer" onClick={handleClose}></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer" onClick={handleMinimize}></div>
+              <div className="w-3 h-3 rounded-full bg-green-500 cursor-pointer" onClick={handleMaximize}></div>
             </div>
             <span className="text-sm">terminal</span>
             <button className="theme-switcher" onClick={toggleTheme}>
@@ -376,10 +395,11 @@ export default function InteractiveTerminal() {
             </button>
           </div>
           
+          {!isMinimized && (
           <div 
             ref={terminalRef}
             className="p-4 overflow-y-auto"
-            style={{ height: '60vh' }}
+            style={{ height: isMaximized ? 'calc(100vh - 100px)' : '60vh' }}
             onClick={() => inputRef.current?.focus()}
           >
             {lines.map((line, i) => (
@@ -409,6 +429,7 @@ export default function InteractiveTerminal() {
               <span className="w-2 h-4 bg-green-400 animate-pulse"></span>
             </div>
           </div>
+          )}
         </div>
         
         <p className="text-center mt-4 text-sm">
