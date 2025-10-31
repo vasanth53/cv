@@ -1,0 +1,30 @@
+/* src/theme.css */
+
+:root[data-theme='dark'] {
+    --background-color: #000000;
+    --terminal-background: #1a1a1a;
+    --terminal-border: #00ff00;
+    --header-background: #333333;
+    --header-text: #cccccc;
+    --prompt-color: #00ff00;
+    --command-color: #00ffff;
+    --output-color: #00ff00;
+    --text-color: #cccccc;
+    --button-background: #333333;
+    --button-text: #ffffff;
+  }
+  
+  :root[data-theme='light'] {
+    --background-color: #ffffff;
+    --terminal-background: #f0f0f0;
+    --terminal-border: #008000;
+    --header-background: #e0e0e0;
+    --header-text: #333333;
+    --prompt-color: #008000;
+    --command-color: #0000ff;
+    --output-color: #008000;
+    --text-color: #333333;
+    --button-background: #e0e0e0;
+    --button-text: #000000;
+  }
+  

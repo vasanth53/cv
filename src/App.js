@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import './App.css';
 
 // Helper functions for Blackjack game
 const createDeck = () => {
@@ -60,6 +61,7 @@ export default function InteractiveTerminal() {
   const [lines, setLines] = useState([]);
   const inputRef = useRef(null);
   const terminalRef = useRef(null);
+  const [theme, setTheme] = useState('dark');
 
   // Blackjack game state
   const [gameActive, setGameActive] = useState(false);
@@ -78,6 +80,10 @@ export default function InteractiveTerminal() {
     github: "Not provided",
     linkedin: "VasanthKumar"
   };
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   useEffect(() => {
     setLines([     
@@ -349,44 +355,58 @@ export default function InteractiveTerminal() {
     }
   };
 
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
   return (
-    <div className="min-h-screen bg-black p-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-gray-900 rounded-lg overflow-hidden border border-green-500">
-          <div className="bg-gray-800 px-4 py-2 flex items-center gap-2 border-b border-green-500">
-            <div className="w-3 h-3 rounded-full bg-red-500"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
-            <span className="ml-2 text-gray-400 text-sm">terminal</span>
+    <div className="flex items-center justify-center w-full h-screen p-4">
+      <div className="max-w-4xl mx-auto w-full">
+        <div className="terminal rounded-lg overflow-hidden">
+          <div className="terminal-header px-4 py-2 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <span className="text-sm">terminal</span>
+            <button className="theme-switcher" onClick={toggleTheme}>
+              {theme === 'dark' ? (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+              )}
+            </button>
           </div>
           
           <div 
             ref={terminalRef}
-            className="p-4 h-96 overflow-y-auto"
+            className="p-4 overflow-y-auto"
+            style={{ height: '60vh' }}
             onClick={() => inputRef.current?.focus()}
           >
             {lines.map((line, i) => (
               <div key={i} className="mb-1">
                 {line.type === 'cmd' ? (
                   <div className="flex gap-2">
-                    <span className="text-green-400">$</span>
-                    <span className="text-blue-400">{line.value}</span>
+                    <span className="prompt">$</span>
+                    <span className="command">{line.value}</span>
                   </div>
                 ) : (
-                  <div className="text-green-400 font-mono text-sm">{line.value}</div>
+                  <div className="font-mono text-sm">{line.value}</div>
                 )}
               </div>
             ))}
             
             <div className="flex gap-2 items-center mt-2">
-              <span className="text-green-400">$</span>
+              <span className="prompt">$</span>
               <input
                 ref={inputRef}
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="flex-1 bg-transparent text-green-400 outline-none font-mono text-sm"
+                className="flex-1 bg-transparent outline-none font-mono text-sm"
                 autoFocus
               />
               <span className="w-2 h-4 bg-green-400 animate-pulse"></span>
@@ -394,7 +414,7 @@ export default function InteractiveTerminal() {
           </div>
         </div>
         
-        <p className="text-gray-500 text-center mt-4 text-sm">
+        <p className="text-center mt-4 text-sm">
           Type "help" to see available commands
         </p>
       </div>
