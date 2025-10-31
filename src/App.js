@@ -70,7 +70,6 @@ export default function InteractiveTerminal() {
   const [dealerHand, setDealerHand] = useState([]);
   const [playerScore, setPlayerScore] = useState(0);
   const [dealerScore, setDealerScore] = useState(0);
-  const [gameMessage, setGameMessage] = useState('');
 
   const data = {
     name: "VASANTHKUMAR J",
@@ -120,7 +119,6 @@ export default function InteractiveTerminal() {
     setPlayerScore(initialPlayerScore);
     setDealerScore(initialDealerScore);
     setGameActive(true);
-    setGameMessage('');
 
     addOutput([
       "Starting a new game of Blackjack!",
@@ -141,7 +139,6 @@ export default function InteractiveTerminal() {
 
   const endGame = (message) => {
     setGameActive(false);
-    setGameMessage(message);
     addOutput([
       `--- Game Over ---`,
       `Your hand: ${displayHand(playerHand)} (Score: ${playerScore})`,
